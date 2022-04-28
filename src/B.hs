@@ -1,4 +1,4 @@
-module B where 
+module B (writebFile1, writebFile2) where 
 
 import qualified Data.Text as T 
 import qualified Data.Text.IO as T
