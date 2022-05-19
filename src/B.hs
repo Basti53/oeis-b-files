@@ -16,11 +16,11 @@ intToText = TL.toStrict . B.toLazyText . B.decimal
 toLines :: (Integral a, Integral b) => a -> [b] -> [T.Text]
 toLines offset theSequence = do 
     (n, an) <- zip [offset..] theSequence
-    return $ intToText n `T.append` T.pack " " `T.append` intToText an `T.append` T.pack "\n"
+    return $ intToText n `T.append` T.pack " " `T.append` intToText an
 
 writebFile1 :: (Integral a, Integral b) => String -> a -> Int -> [b] -> IO ()
 writebFile1 fileName offset maxbFileLength theSequence = 
-    mapM_ (T.appendFile fileName) $ takeWhile lineOK $ take maxbFileLength $ toLines offset theSequence
+    T.writeFile fileName $ T.unlines $ takeWhile lineOK $ take maxbFileLength $ toLines offset theSequence
 
 writebFile2 :: (Integral a, Integral b) => String -> a -> Int -> (a -> b) -> IO () 
 writebFile2 fileName offset maxbFileLength f = 
